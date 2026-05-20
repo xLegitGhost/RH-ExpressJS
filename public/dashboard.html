@@ -6,101 +6,110 @@
     <title>Dashboard - RRHH Taller Node.js</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-[#0a0a0a] min-h-screen text-zinc-300">
 
     <!-- Navbar -->
-    <nav class="bg-blue-600 shadow-md">
+    <nav class="bg-black border-b border-zinc-900 shadow-xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
+            <div class="flex justify-between h-20">
                 <div class="flex items-center">
-                    <span class="text-white font-bold text-xl">RRHH Admin</span>
+                    <span class="text-white font-black text-2xl tracking-tighter uppercase">RRHH <span class="text-zinc-500">Admin</span></span>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <span id="userNameDisplay" class="text-blue-100"></span>
-                    <button id="logoutBtn" class="bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition">Cerrar Sesión</button>
+                <div class="flex items-center space-x-8">
+                    <span id="userNameDisplay" class="text-zinc-500 text-xs font-bold uppercase tracking-widest"></span>
+                    <button id="logoutBtn" class="border border-zinc-800 hover:bg-zinc-900 text-white px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300">Cerrar Sesión</button>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-semibold text-gray-800">Gestión de Empleados</h1>
-            <button onclick="openModal()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded shadow">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+            <div>
+                <h1 class="text-4xl font-black text-white tracking-tighter uppercase">Gestión de Empleados</h1>
+                <p class="text-zinc-500 text-sm mt-1 uppercase tracking-widest">Panel de Administración</p>
+            </div>
+            <button onclick="openModal()" class="bg-white hover:bg-zinc-200 text-black font-black py-4 px-8 rounded-xl shadow-2xl transition-all duration-300 transform active:scale-95 uppercase text-xs tracking-widest">
                 + Nuevo Empleado
             </button>
         </div>
 
         <!-- Search Bar -->
-        <div class="mb-6 flex">
+        <div class="mb-10 flex group">
             <input type="text" id="searchInput" placeholder="Buscar empleado por nombre..." 
-                class="w-full px-4 py-2 rounded-l-md border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-            <button id="searchBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-md">Buscar</button>
-            <button id="resetSearchBtn" class="ml-2 bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded-md hidden">Limpiar</button>
+                class="w-full bg-zinc-900 border border-zinc-800 px-6 py-4 rounded-l-2xl text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white focus:border-white transition-all">
+            <button id="searchBtn" class="bg-white text-black px-8 py-4 rounded-r-2xl font-bold uppercase text-xs tracking-widest hover:bg-zinc-200 transition-all">Buscar</button>
+            <button id="resetSearchBtn" class="ml-4 text-zinc-500 hover:text-white transition-colors uppercase text-[10px] font-bold tracking-widest hidden">Limpiar</button>
         </div>
 
         <!-- Table -->
-        <div class="bg-white shadow rounded-lg overflow-hidden overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre Completo</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contacto</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dirección</th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody id="employeesTableBody" class="bg-white divide-y divide-gray-200">
-                    <!-- Filas generadas por JS -->
-                    <tr><td colspan="4" class="text-center py-4 text-gray-500">Cargando...</td></tr>
-                </tbody>
-            </table>
+        <div class="bg-zinc-900/50 border border-zinc-800 rounded-3xl overflow-hidden shadow-2xl">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-zinc-800">
+                    <thead>
+                        <tr class="bg-black/40">
+                            <th class="px-8 py-5 text-left text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em]">Nombre Completo</th>
+                            <th class="px-8 py-5 text-left text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em]">Contacto</th>
+                            <th class="px-8 py-5 text-left text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em]">Dirección</th>
+                            <th class="px-8 py-5 text-right text-[10px] font-black text-zinc-500 uppercase tracking-[0.2em]">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeesTableBody" class="divide-y divide-zinc-800">
+                        <!-- Filas generadas por JS -->
+                        <tr><td colspan="4" class="text-center py-20 text-zinc-600 animate-pulse uppercase text-xs tracking-widest">Cargando...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </main>
 
     <!-- Modal Form (Create/Edit) -->
-    <div id="employeeModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
-        <div class="relative top-20 mx-auto p-5 border w-full max-w-lg shadow-lg rounded-md bg-white">
+    <div id="employeeModal" class="fixed inset-0 bg-black/90 backdrop-blur-sm overflow-y-auto h-full w-full hidden z-50 transition-all duration-500">
+        <div class="relative top-10 mx-auto p-10 border border-zinc-800 w-full max-w-2xl shadow-2xl rounded-3xl bg-black">
             <div class="mt-3">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modalTitle">Nuevo Empleado</h3>
-                <form id="employeeForm" class="space-y-4 text-left">
+                <div class="mb-8">
+                    <h3 class="text-3xl font-black text-white tracking-tighter uppercase" id="modalTitle">Nuevo Empleado</h3>
+                    <p class="text-zinc-500 text-xs mt-1 uppercase tracking-widest">Ingrese los datos del empleado</p>
+                </div>
+                
+                <form id="employeeForm" class="space-y-6 text-left">
                     <input type="hidden" id="empId">
                     
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Nombre *</label>
-                            <input type="text" id="empNombre" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <label class="block text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2 ml-1">Nombre *</label>
+                            <input type="text" id="empNombre" required class="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 rounded-xl text-white focus:outline-none focus:ring-1 focus:ring-white">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Apellidos *</label>
-                            <input type="text" id="empApellidos" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <label class="block text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2 ml-1">Apellidos *</label>
+                            <input type="text" id="empApellidos" required class="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 rounded-xl text-white focus:outline-none focus:ring-1 focus:ring-white">
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Teléfono</label>
-                            <input type="text" id="empTelefono" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <label class="block text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2 ml-1">Teléfono</label>
+                            <input type="text" id="empTelefono" class="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 rounded-xl text-white focus:outline-none focus:ring-1 focus:ring-white">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Correo Electrónico *</label>
-                            <input type="email" id="empCorreo" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md">
+                            <label class="block text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2 ml-1">Correo Electrónico *</label>
+                            <input type="email" id="empCorreo" required class="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 rounded-xl text-white focus:outline-none focus:ring-1 focus:ring-white">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700">Dirección</label>
-                        <textarea id="empDireccion" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+                        <label class="block text-[10px] font-black text-zinc-500 uppercase tracking-widest mb-2 ml-1">Dirección</label>
+                        <textarea id="empDireccion" rows="3" class="w-full bg-zinc-900 border border-zinc-800 px-4 py-3 rounded-xl text-white focus:outline-none focus:ring-1 focus:ring-white"></textarea>
                     </div>
 
-                    <div id="modalError" class="text-red-500 text-sm hidden"></div>
+                    <div id="modalError" class="text-red-400 text-xs font-bold p-4 bg-red-900/10 border border-red-900/20 rounded-xl hidden uppercase tracking-widest"></div>
 
-                    <div class="flex justify-end space-x-3 mt-5">
-                        <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300">Cancelar</button>
-                        <button type="submit" id="saveBtn" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Guardar</button>
+                    <div class="flex justify-end space-x-4 mt-10">
+                        <button type="button" onclick="closeModal()" class="px-8 py-4 text-zinc-500 hover:text-white transition-colors font-bold uppercase text-xs tracking-widest">Cancelar</button>
+                        <button type="submit" id="saveBtn" class="px-10 py-4 bg-white text-black font-black rounded-xl hover:bg-zinc-200 transition-all uppercase text-xs tracking-widest shadow-xl">Guardar</button>
                     </div>
                 </form>
             </div>

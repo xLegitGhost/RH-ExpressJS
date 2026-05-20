@@ -27,9 +27,9 @@ const login = async (req, res) => {
 
     const user = users[0];
 
-    // Verificar contraseña (se asume que están hasheadas con bcrypt en la BD, 
-    // pero si el admin las pone en texto plano por ahora lo manejamos también por seguridad de la prueba)
-    // Para simplificar la prueba y si la insertas manual a mano en Supabase sin hash:
+    // Verificar contraseña
+    // pero si el admin las pone en texto plano por ahora lo manejamos también por testing
+    // Para fines de test y si la insertas manual a mano en Supabase sin hash:
     let isMatch = false;
     
     // Check if it's hashed by checking its length (bcrypt hashes are typically 60 chars long)

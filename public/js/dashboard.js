@@ -60,26 +60,27 @@ function renderTable() {
     tableBody.innerHTML = '';
     
     if (currentEmployees.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-gray-500">No se encontraron empleados.</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="4" class="text-center py-20 text-zinc-600 uppercase text-xs tracking-widest font-bold">No se encontraron empleados.</td></tr>`;
         return;
     }
 
     currentEmployees.forEach(emp => {
         const row = document.createElement('tr');
+        row.className = "hover:bg-white/[0.02] transition-colors duration-200 group";
         row.innerHTML = `
-            <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-medium text-gray-900">${emp.nombre} ${emp.apellidos}</div>
+            <td class="px-8 py-6 whitespace-nowrap">
+                <div class="text-sm font-black text-white uppercase tracking-tight">${emp.nombre} ${emp.apellidos}</div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-gray-900">${emp.correo}</div>
-                <div class="text-sm text-gray-500">${emp.telefono || 'N/A'}</div>
+            <td class="px-8 py-6 whitespace-nowrap">
+                <div class="text-sm text-zinc-300 font-medium">${emp.correo}</div>
+                <div class="text-xs text-zinc-500 mt-1">${emp.telefono || 'N/A'}</div>
             </td>
-            <td class="px-6 py-4">
-                <div class="text-sm text-gray-500 truncate max-w-xs">${emp.direccion || 'N/A'}</div>
+            <td class="px-8 py-6">
+                <div class="text-xs text-zinc-500 truncate max-w-xs uppercase tracking-wider font-medium">${emp.direccion || 'N/A'}</div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <button onclick="editEmployee('${emp.id}')" class="text-indigo-600 hover:text-indigo-900 mr-3">Editar</button>
-                <button onclick="deleteEmployee('${emp.id}')" class="text-red-600 hover:text-red-900">Eliminar</button>
+            <td class="px-8 py-6 whitespace-nowrap text-right text-xs font-bold uppercase tracking-widest">
+                <button onclick="editEmployee('${emp.id}')" class="text-zinc-400 hover:text-white mr-6 transition-colors">Editar</button>
+                <button onclick="deleteEmployee('${emp.id}')" class="text-zinc-700 hover:text-red-500 transition-colors">Eliminar</button>
             </td>
         `;
         tableBody.appendChild(row);
@@ -111,7 +112,7 @@ function openModal(employee = null) {
     employeeForm.reset();
 
     if (employee) {
-        modalTitle.textContent = 'Editar Empleado';
+        modalTitle.textContent = 'Editando Empleado';
         document.getElementById('empId').value = employee.id;
         document.getElementById('empNombre').value = employee.nombre;
         document.getElementById('empApellidos').value = employee.apellidos;
@@ -163,7 +164,7 @@ employeeForm.addEventListener('submit', async (e) => {
         if (!response.ok) throw new Error(data.error);
 
         closeModal();
-        fetchEmployees(searchInput.value.trim()); // Refrescar manteniendo búsqueda
+        fetchEmployees(searchInput.value.trim()); // Refrescar manteniendo busqueda
     } catch (error) {
         modalError.textContent = error.message;
         modalError.classList.remove('hidden');

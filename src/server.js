@@ -13,14 +13,14 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Archivos estáticos (Frontend)
+// Archivos publicos (Frontend)
 app.use(express.static(path.join(__dirname, '../public')));
 
 // Rutas API
 app.use('/api/auth', authRoutes);
 app.use('/api/employees', employeeRoutes);
 
-// Fallback para rutas no encontradas (útil para SPA)
+// Fallback para rutas no encontradas
 app.use((req, res, next) => {
   // Si la ruta empieza con /api/, devolvemos un 404 en formato JSON
   if (req.path.startsWith('/api/')) {
@@ -31,5 +31,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

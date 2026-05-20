@@ -1,6 +1,6 @@
 const supabase = require('../config/supabase');
 
-// Obtener todos los empleados (con opción de búsqueda)
+// Obtener todos los empleados
 const getEmployees = async (req, res) => {
   const { search } = req.query;
   
@@ -8,7 +8,7 @@ const getEmployees = async (req, res) => {
     let query = supabase.from('employees').select('*').order('id', { ascending: false });
 
     if (search) {
-      // Buscar por nombre usando ilike (case-insensitive)
+      // Buscar por nombre usando ilike
       query = query.ilike('nombre', `%${search}%`);
     }
 
