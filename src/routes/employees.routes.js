@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const employeesController = require('../controllers/employees.controller');
-const verifyToken = require('../middlewares/auth.middleware');
+import express from 'express';
+import * as employeesController from '../controllers/employees.controller.js';
+import verifyToken from '../middlewares/auth.middleware.js';
 
-// proteccion de middleware JWT
+const router = express.Router();
+
 router.use(verifyToken);
 
 router.get('/', employeesController.getEmployees);
@@ -11,4 +11,4 @@ router.post('/', employeesController.createEmployee);
 router.put('/:id', employeesController.updateEmployee);
 router.delete('/:id', employeesController.deleteEmployee);
 
-module.exports = router;
+export default router;

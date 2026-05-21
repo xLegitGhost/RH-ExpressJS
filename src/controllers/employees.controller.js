@@ -1,14 +1,12 @@
-const supabase = require('../config/supabase');
+import supabase from '../config/supabase.js';
 
-// Obtener todos los empleados
-const getEmployees = async (req, res) => {
+export const getEmployees = async (req, res) => {
   const { search } = req.query;
   
   try {
     let query = supabase.from('employees').select('*').order('id', { ascending: false });
 
     if (search) {
-      // Buscar por nombre usando ilike
       query = query.ilike('nombre', `%${search}%`);
     }
 
@@ -21,8 +19,7 @@ const getEmployees = async (req, res) => {
   }
 };
 
-// Crear empleado
-const createEmployee = async (req, res) => {
+export const createEmployee = async (req, res) => {
   const { nombre, apellidos, telefono, correo, direccion } = req.body;
 
   if (!nombre || !apellidos || !correo) {
@@ -42,8 +39,7 @@ const createEmployee = async (req, res) => {
   }
 };
 
-// Actualizar empleado
-const updateEmployee = async (req, res) => {
+export const updateEmployee = async (req, res) => {
   const { id } = req.params;
   const { nombre, apellidos, telefono, correo, direccion } = req.body;
 
@@ -63,8 +59,7 @@ const updateEmployee = async (req, res) => {
   }
 };
 
-// Eliminar empleado
-const deleteEmployee = async (req, res) => {
+export const deleteEmployee = async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -81,11 +76,4 @@ const deleteEmployee = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error al eliminar empleado', details: error.message });
   }
-};
-
-module.exports = {
-  getEmployees,
-  createEmployee,
-  updateEmployee,
-  deleteEmployee
 };
