@@ -1,8 +1,8 @@
-const supabase = require('../config/supabase');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import supabase from '../config/supabase.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
-const login = async (req, res) => {
+export const login = async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -10,7 +10,6 @@ const login = async (req, res) => {
   }
 
   try {
-    // Buscar usuario en Supabase (tabla 'users')
     const { data: users, error } = await supabase
       .from('users')
       .select('*')
@@ -27,16 +26,10 @@ const login = async (req, res) => {
 
     const user = users[0];
 
-    // Verificar contraseña
-    // pero si el admin las pone en texto plano por ahora lo manejamos también por testing
-    // Para fines de test y si la insertas manual a mano en Supabase sin hash:
     let isMatch = false;
-    
-    // Check if it's hashed by checking its length (bcrypt hashes are typically 60 chars long)
     if (user.password.startsWith('$2a$') || user.password.startsWith('$2b$')) {
         isMatch = await bcrypt.compare(password, user.password);
     } else {
-        // Fallback for plain text passwords inserted manually in Supabase GUI for testing
         isMatch = (password === user.password);
     }
 
@@ -44,7 +37,6 @@ const login = async (req, res) => {
       return res.status(401).json({ error: 'Credenciales inválidas.' });
     }
 
-    // Crear y firmar el JWT
     const token = jwt.sign(
       { id: user.id, username: user.username },
       process.env.JWT_SECRET,
@@ -64,8 +56,4 @@ const login = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Error en el servidor.' });
   }
-};
-
-module.exports = {
-  login
 };
